@@ -16,7 +16,11 @@
         },
         "require-dev": {
                 "atk14/tester": "*",
-                "atk14/table-record": "*"
+                "atk14/table-record": "*",
+                "atk14/mini-yaml": "^1.0",
+                "atk14/dictionary": "^1.0",
+                "atk14/core": "dev-master",
+                "atk14/class-autoload": "^1.0"
         },
         "autoload": {
                 "classmap": ["src/"]

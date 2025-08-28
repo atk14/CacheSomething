@@ -1,0 +1,11 @@
+article_1:
+  article_id: "<?= $articles["article_1"]->getId() ?>"
+  author_id: "<?= $authors["john_doe"]->getId() ?>"
+
+article_2:
+  article_id: "<?= $articles["article_2"]->getId() ?>"
+  author_id: "<?= $authors["samantha_doe"]->getId() ?>"
+
+article_3:
+  article_id: "<?= $articles["article_3"]->getId() ?>"
+  author_id: "<?= $authors["rocky_balboa"]->getId() ?>"
