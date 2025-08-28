@@ -1,0 +1,24 @@
+{
+        "name": "atk14/cache-something",
+        "type": "library",
+        "description": "Caching helper for Atk14 Framework",
+        "keywords": [],
+        "homepage": "https://github.com/atk14/CacheSomething",
+        "license": ["MIT"],
+        "authors": [
+                {
+                        "name": "ATK14 Development Team",
+                        "homepage": "https://github.com/orgs/atk14/people"
+                }
+        ],
+        "require": {
+                "php": ">=5.6"
+        },
+        "require-dev": {
+                "atk14/tester": "*",
+                "atk14/table-record": "*"
+        },
+        "autoload": {
+                "classmap": ["src/"]
+        }
+}
