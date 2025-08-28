@@ -1,7 +1,7 @@
 {
         "name": "atk14/cache-something",
         "type": "library",
-        "description": "Caching helper for Atk14 Framework",
+        "description": "Caching helper for the ATK14 Framework",
         "keywords": [],
         "homepage": "https://github.com/atk14/CacheSomething",
         "license": ["MIT"],
