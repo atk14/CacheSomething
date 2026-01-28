@@ -19,7 +19,7 @@ class CacheSomething {
 
 	function __construct($function, $model = False, $options = []) {
 		$this->function = $function;
-		$this->cache = [ null => null ];
+		$this->cache = [ "" => null ];
 		$this->model = $model;
 		$this->options = $options + [
 			'force_read' => false,
@@ -68,12 +68,12 @@ class CacheSomething {
 				$ids = $ids;
 			}
 			$ids = $this->mapIds($ids);
-			$this->cache = array_diff_key($this->cache, $ids) + [ null => null ];
+			$this->cache = array_diff_key($this->cache, $ids) + [ "" => null ];
 		}
 	}
 
 	function flushCache() {
-		$this->cache = [ null => null ];
+		$this->cache = [ "" => null ];
 	}
 
 	function get($ids, $options = []) {
