@@ -36,6 +36,14 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: composer
 
+      - name: Install PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql
+          sudo systemctl start postgresql
+          sudo -u postgres psql -c "CREATE USER test WITH PASSWORD 'test';"
+          sudo -u postgres psql -c "CREATE DATABASE test OWNER test;"
+
       - name: Install dependencies
         run: composer update
 
