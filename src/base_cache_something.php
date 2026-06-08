@@ -88,7 +88,8 @@ class BaseCacheSomething {
 
 		if($this->options['map_id']) {
 			foreach($ids as &$id) {
-					$id = $cache[$id];
+				if(is_null($id)){ continue; }
+				$id = $cache[$id];
 			}
 			$out = $ids;
 		} else {
