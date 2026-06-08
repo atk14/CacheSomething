@@ -12,8 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         php:
-          - "5.6"
-          - "7.0"
           - "7.1"
           - "7.2"
           - "7.3"
@@ -35,6 +33,14 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: composer
+
+      - name: Install PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql
+          sudo systemctl start postgresql
+          sudo -u postgres psql -c "CREATE USER test WITH PASSWORD 'test';"
+          sudo -u postgres psql -c "CREATE DATABASE test OWNER test;"
 
       - name: Install dependencies
         run: composer update
