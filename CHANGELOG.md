@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.2] 2026-07-19
+
+* 0c847cb - Added method CacheSomething::CacheObjectProperty()
+
 ## [1.1.1] 2026-06-08
 
 * 539bb53 - Packahe atk14/cache-something is compatible with PHP>=7.1
