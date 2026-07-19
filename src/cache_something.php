@@ -11,8 +11,18 @@
  */
 
 class CacheSomething extends BaseCacheSomething {
+
 	static function ClearCacheObject() {
 		return [ null => null ];
+	}
+
+	static function CacheObjectProperty($resultObj, $model, $options=[]) {
+		$options += ['map_method' => "get{$resultObj}Id" ];
+		return new static(
+			[$resultObj, 'GetInstanceById'],
+			$model,
+			$options
+		);
 	}
 
 	function clearCache($ids = null) {
