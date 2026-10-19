@@ -12,7 +12,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 		if($ids === null && $params == null) {
 			$this->flushCache();
 		} elseif($ids === null) {
-			$this->cache = [ null => null ];
+			$this->cache = [ "" => null ];
 		} else {
 			if(!is_array($ids)) {
 				$ids = [ $ids ];
@@ -20,7 +20,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 				$ids = $ids;
 			}
 			$ids = $this->mapIds($ids);
-			$this->cache[$params] = array_diff_key($this->cache, $ids) + [ null => null ];
+			$this->cache[$params] = array_diff_key($this->cache, $ids) + [ "" => null ];
 		}
 	}
 
@@ -36,7 +36,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 	function &_getCache($params) {
 		$key = $this->paramsToKey($params);
 		if(!key_exists($key, $this->cache)) {
-			$this->cache[$key] = [ null => null ];
+			$this->cache[$key] = [ "" => null ];
 		}
 		return $this->cache[$key];
 
@@ -51,7 +51,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 
 	function getCache($params) {
 		$out = $this->_getCache($params);
-		unset($out[null]);
+		unset($out[""]);
 		return $out;
 	}
 }

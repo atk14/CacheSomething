@@ -13,7 +13,7 @@
 class CacheSomething extends BaseCacheSomething {
 
 	static function ClearCacheObject() {
-		return [ null => null ];
+		return [ "" => null ];
 	}
 
 	static function CacheObjectProperty($resultObj, $model, $options=[]) {
@@ -38,7 +38,7 @@ class CacheSomething extends BaseCacheSomething {
 				$ids = $ids;
 			}
 			$ids = $this->mapIds($ids);
-			$this->cache = array_diff_key($this->cache, $ids) + [ null => null ];
+			$this->cache = array_diff_key($this->cache, $ids) + [ "" => null ];
 		}
 	}
 
