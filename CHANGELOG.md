@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.4] 2026-10-26
+
+* 2862c9b - ParamCacheSomething::paramsToKey() fixed
+
 ## [1.1.3] 2026-10-19
 
 * 889f21b - Fixed PHP deprecation: Using null as an array offset is deprecated, use an empty string instead
