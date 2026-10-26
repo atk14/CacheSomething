@@ -47,7 +47,12 @@ class ParamCacheSomething extends BaseCacheSomething {
 			if(method_exists($params,"getId")){
 				return get_class($params)."#".$params->getId();
 			}
-			return serialize($params);
+			// serialize() is unsafe here: objects without getId() are often
+			// request-scoped helpers (e.g. PriceFinder) carrying live, mutating
+			// state (db handles, growing caches), so their serialized form keeps
+			// changing between calls and defeats the cache. Key by instance
+			// identity instead - stable for as long as the same instance is reused.
+			return get_class($params)."#".spl_object_id($params);
 		}
 		return $params;
 	}
