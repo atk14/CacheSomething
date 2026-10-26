@@ -44,7 +44,10 @@ class ParamCacheSomething extends BaseCacheSomething {
 
 	function paramsToKey($params) {
 		if(is_object($params)) {
-			return $params->getId();
+			if(method_exists($params,"getId")){
+				return get_class($params)."#".$params->getId();
+			}
+			return serialize($params);
 		}
 		return $params;
 	}
