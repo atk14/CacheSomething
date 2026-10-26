@@ -1,10 +1,20 @@
 <?php
 class ParamCacheSomething extends BaseCacheSomething {
+
+	protected $identityKeys; // SplObjectStorage: object (without getId()) -> its assigned cache key
+	protected static $identityCounter = 0;
+
 	static function ClearCacheObject() {
 		return [ ];
 	}
 
+	function flushCache() {
+		parent::flushCache();
+		$this->identityKeys = new SplObjectStorage();
+	}
+
 	function clearCache($params=null, $ids = null) {
+		$original_params = $params;
 		$params = $this->paramsToKey($params);
 		if($this->options['clear_condition'] && !$this->options['clear_condition']($params, $ids)) {
 			return;
@@ -13,6 +23,9 @@ class ParamCacheSomething extends BaseCacheSomething {
 			$this->flushCache();
 		} elseif($ids === null) {
 			$this->cache = [ "" => null ];
+			if(is_object($original_params) && $this->identityKeys){
+				unset($this->identityKeys[$original_params]);
+			}
 		} else {
 			if(!is_array($ids)) {
 				$ids = [ $ids ];
@@ -47,12 +60,19 @@ class ParamCacheSomething extends BaseCacheSomething {
 			if(method_exists($params,"getId")){
 				return get_class($params)."#".$params->getId();
 			}
-			// serialize() is unsafe here: objects without getId() are often
-			// request-scoped helpers (e.g. PriceFinder) carrying live, mutating
-			// state (db handles, growing caches), so their serialized form keeps
-			// changing between calls and defeats the cache. Key by instance
-			// identity instead - stable for as long as the same instance is reused.
-			return get_class($params)."#".spl_object_id($params);
+			// spl_object_id()/spl_object_hash() alone are unsafe here: PHP recycles
+			// them as soon as an object is destroyed, so a later, unrelated object
+			// could be assigned the very same id and silently inherit stale cached
+			// data. SplObjectStorage both keys by true object identity and holds a
+			// strong reference to $params, which prevents it from being destroyed
+			// (and its id recycled) for as long as it's used as a cache key.
+			if(!$this->identityKeys){
+				$this->identityKeys = new SplObjectStorage();
+			}
+			if(!isset($this->identityKeys[$params])){
+				$this->identityKeys[$params] = get_class($params)."#".(self::$identityCounter++);
+			}
+			return $this->identityKeys[$params];
 		}
 		return $params;
 	}
