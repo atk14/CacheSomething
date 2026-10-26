@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.5] 2026-10-26
+
+* 9dacbe2 - ParamCacheSomething::paramsToKey() - use SplObjectStorage instead of spl_object_id() to avoid cache key collisions after object destruction
+* 97b912e - ParamCacheSomething::paramsToKey() - use spl_object_id() instead of serialize() for objects without getId()
+
 ## [1.1.4] 2026-10-26
 
 * 2862c9b - ParamCacheSomething::paramsToKey() fixed
