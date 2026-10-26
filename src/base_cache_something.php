@@ -45,7 +45,7 @@ class BaseCacheSomething {
 				$fce = $this->options['map_id'];
 				$ids = $fce($ids);
 			} else {
-				$ids = Tablerecord::ObjToId($ids);
+				$ids = TableRecord::ObjToId($ids);
 			}
 			return $ids;
 	}
