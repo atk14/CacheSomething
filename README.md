@@ -126,7 +126,7 @@ The third constructor argument accepts:
 * `clear_condition` — a `function($ids)` (or `function($params, $ids)` for `ParamCacheSomething`) consulted by `clearCache()`; returning `false` skips the clear.
 * `default_value` (default `null`) — value used for ids the loader didn't return anything for.
 
-`getCached($ids, $options)` is a shortcut for `get($ids, $options + ["only_cached" => true])` — it never calls the loader, returning only what's already in the cache.
+`getCached($ids, $options)` is a shortcut for `get($ids, $options + ["only_cached" => true])` — it never calls the loader, returning only what's already in the cache. (`ParamCacheSomething` has the matching `getCached($params, $ids, $options)`.)
 
 ParamCacheSomething
 --------------------
@@ -142,7 +142,15 @@ $cache = new ParamCacheSomething(function($params, $ids, $options){
 $cache->get($currency, $products); // cached separately per $currency
 ```
 
-Objects passed as `$params` are turned into cache keys via `"ClassName#id"` when they expose `getId()` (so objects of different classes sharing the same id never collide), falling back to `serialize()` otherwise.
+Objects passed as `$params` are turned into cache keys via `"ClassName#id"` when they expose `getId()` (so objects of different classes sharing the same id never collide). Objects without `getId()` are keyed by instance identity instead (an internal counter, not by content), so the same object instance always maps to the same key while two different instances never collide — even if one of them was previously destroyed.
+
+`clearCache($params, $ids)` and `getCached($params, $ids, $options)` mirror `CacheSomething`'s, just with the extra `$params` in front:
+
+```php
+$cache->clearCache($currency);        // forget everything cached under this $params
+$cache->clearCache($currency, $ids);  // forget just these ids under this $params
+$cache->getCached($currency, $ids);   // read-only: never calls the loader
+```
 
 Testing
 -------
