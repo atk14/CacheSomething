@@ -38,7 +38,7 @@ class CacheSomething extends BaseCacheSomething {
 				$ids = $ids;
 			}
 			$ids = $this->mapIds($ids);
-			$this->cache = array_diff_key($this->cache, $ids) + [ "" => null ];
+			$this->cache = array_diff_key($this->cache, array_flip($ids)) + [ "" => null ];
 		}
 	}
 
