@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.7] 2026-10-27
+
+* 5423fb6 - ParamCacheSomething::paramsToKey() - add support for array $params
+
 ## [1.1.6] 2026-10-27
 
 * 1dd7e00 - CacheSomething::clearCache() - fix clearing by ids never actually removing anything from the cache
