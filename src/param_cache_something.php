@@ -38,12 +38,18 @@ class ParamCacheSomething extends BaseCacheSomething {
 	}
 
 	function get($params, $ids, $options = []) {
-		$fce = function($ids, $options) use ($params) { 
+		$fce = function($ids, $options) use ($params) {
 			$fce = $this->function;
 			return $fce($params, $ids, $options);
 		};
 		$cache = &$this->_getCache($params);
 		return $this->_get($cache, $fce, $ids, $options);
+	}
+
+	// $ids is required in practice; it's only declared optional here to keep the
+	// override compatible with BaseCacheSomething::getCached($ids, $options = []).
+	function getCached($params, $ids = null, $options = []) {
+		return $this->get($params, $ids, $options + ['only_cached' => true]);
 	}
 
 	function &_getCache($params) {
