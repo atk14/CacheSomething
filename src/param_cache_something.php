@@ -62,6 +62,12 @@ class ParamCacheSomething extends BaseCacheSomething {
 	}
 
 	function paramsToKey($params) {
+		if(is_array($params)) {
+			// Convert each element to its own key first (so nested objects go through
+			// the identity-safe handling below) and only then serialize the resulting
+			// array of plain keys - never the raw, possibly-live/stateful elements.
+			return serialize(array_map([$this, 'paramsToKey'], $params));
+		}
 		if(is_object($params)) {
 			if(method_exists($params,"getId")){
 				return get_class($params)."#".$params->getId();
