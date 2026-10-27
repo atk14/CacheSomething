@@ -22,7 +22,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 		if($ids === null && $params == null) {
 			$this->flushCache();
 		} elseif($ids === null) {
-			$this->cache = [ "" => null ];
+			$this->cache[$params] = [ "" => null ];
 			if(is_object($original_params) && $this->identityKeys){
 				unset($this->identityKeys[$original_params]);
 			}
