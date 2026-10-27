@@ -144,6 +144,14 @@ $cache->get($currency, $products); // cached separately per $currency
 
 Objects passed as `$params` are turned into cache keys via `"ClassName#id"` when they expose `getId()` (so objects of different classes sharing the same id never collide). Objects without `getId()` are keyed by instance identity instead (an internal counter, not by content), so the same object instance always maps to the same key while two different instances never collide — even if one of them was previously destroyed.
 
+`$params` can also be a plain array, to bundle several logical values into one call without wrapping them in an object first:
+
+```php
+$cache->get(["currency" => "EUR", "date" => $date], $products); // one bucket per currency+date combination
+```
+
+Each element is converted to its own key the same way as above (so an object nested inside the array still gets the `getId()`/identity handling), and the resulting array of keys is what actually identifies the cache bucket — two calls with array params of the same content hit the same bucket, different content means a different one.
+
 `clearCache($params, $ids)` and `getCached($params, $ids, $options)` mirror `CacheSomething`'s, just with the extra `$params` in front:
 
 ```php
