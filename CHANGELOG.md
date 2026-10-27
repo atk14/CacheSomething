@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.6] 2026-10-27
+
+* 1dd7e00 - CacheSomething::clearCache() - fix clearing by ids never actually removing anything from the cache
+* 1647647 - ParamCacheSomething::clearCache() - fix clearing by ids corrupting that params bucket instead of removing the given ids
+* 48fe5e3 - ParamCacheSomething::clearCache() - fix clearing by $params only wiping the whole cache instead of just that params bucket
+* 51721e5 - ParamCacheSomething::getCached() - fix fatal error by overriding it with the correct ($params, $ids, $options) signature
+
 ## [1.1.5] 2026-10-26
 
 * 9dacbe2 - ParamCacheSomething::paramsToKey() - use SplObjectStorage instead of spl_object_id() to avoid cache key collisions after object destruction
