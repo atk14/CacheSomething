@@ -33,7 +33,7 @@ class ParamCacheSomething extends BaseCacheSomething {
 				$ids = $ids;
 			}
 			$ids = $this->mapIds($ids);
-			$this->cache[$params] = array_diff_key($this->cache[$params] ?? [], array_flip($ids)) + [ "" => null ];
+			$this->cache[$params] = array_diff_key($this->cache[$params] ?? [], array_flip(array_filter($ids))) + [ "" => null ];
 		}
 	}
 
