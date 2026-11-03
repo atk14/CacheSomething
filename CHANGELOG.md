@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to CacheSomething will be documented in this file.
 
+## [1.1.8] 2026-11-03
+
+* 08907ae - CacheSomething/ParamCacheSomething::clearCache() - fix array_flip() warning when an id maps to null
+
 ## [1.1.7] 2026-10-27
 
 * 5423fb6 - ParamCacheSomething::paramsToKey() - add support for array $params
